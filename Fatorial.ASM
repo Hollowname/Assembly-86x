@@ -22,7 +22,7 @@ mov     ecx,[ebp+8]
 
 call    start_rec
 
-end:
+end_rec:
 mov     esp,ebp
 pop     ebp
 ret
