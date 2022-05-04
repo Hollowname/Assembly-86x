@@ -1,0 +1,71 @@
+registers adicionais:
+          r8  - 64b
+          r8d - 32b
+          r8w - 16b
+          r8b - 1b
+
+
+shr move os bits para direita
+shl move os bits para esquerda
+
+rol rotaciona os bits pra esquerda
+ror rotaciona os bits pra direita
+
+
+unsigned        signed
+ja              jl - jmp if less
+jb              jg - jmp if greater
+jae             jle
+jbe             jge
+
+
+if SF == 1 => Negative number
+if OF == 1 => Number with sign wrong
+if SF == 1 && OF == 1 => Positive number
+if SF == 0 && OF == 1 => Negative number
+
+A and B = A * B
+A xor B = A + B = A - B
+
+
+
+A + B = A - B
+  LOWER CODIGO:
+
+        mov      ecx,table
+    lower:
+
+        movzx    eax, byte [edx]
+        cmp      al,0
+        je       done
+
+        mov      al,[ecx+eax]
+
+       ;xlatb   ;is a abvr for: xlat     byte [ebx]
+
+
+       ;cmp      al,'A'
+       ;sub      al,'A'
+       ;cmp      al,'Z'-'A'
+       ;ja       next
+       ;add      al,'a'
+
+       ;jb       next
+       ;cmp      al,'Z'
+       ;ja       next
+       ;add      al,20h
+
+        mov      [edx],al
+        inc      edx
+        jmp      lower
+     done:
+
+
+table:
+        repeat 256
+               if %-1 >= 'A' & %-1 <= 'Z'
+                      db %-1-'A'+'a'
+               else
+                      db %-1
+               end if
+        end repeat
